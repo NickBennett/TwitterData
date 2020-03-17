@@ -43,12 +43,12 @@ if in_use == False:
                                count=100,
                                result_type="recent",
                                include_entities=True,
-                               geocode=('-1.28333,36.81667,100mi'),
+                               geocode=('-1.28333,36.81667,100mi'), # Change this to modify location data
                                lang="en").items():
         print(tweet.created_at, tweet.text)
         count += 1
         print("***")
-        tweet_j = json.dumps(tweet._json) # The tweet needs some form of translation in order to save. Analysis file handles reading the 'stringified' data.
+        tweet_j = tweet._json
         tweets.append(tweet_j)
         
     print("Writing tweets to file - takes a while...")

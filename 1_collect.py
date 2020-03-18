@@ -39,7 +39,7 @@ count = 0
 
 if in_use == False:
     for tweet in tweepy.Cursor(api.search,
-                               q="water",
+                               q="", 
                                count=100,
                                result_type="recent",
                                include_entities=True,

@@ -43,8 +43,8 @@ if in_use == False:
                                count=100,
                                result_type="recent",
                                include_entities=True,
-                               geocode=('-1.28333,36.81667,100mi'), # Change this to modify location data
-                               lang="en").items():
+                               geocode=('-1.28333,36.81667,100mi') # Change this to modify location data
+                               ).items():
         print(tweet.created_at, tweet.text)
         count += 1
         print("***")

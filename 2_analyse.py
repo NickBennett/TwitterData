@@ -7,7 +7,7 @@ def read_tweets_from_json():
     print("Read tweets from json? ")
     answer = input("Y/N ")
     if answer == "Y":
-        json_files_list = ["your-files-here.json"] # This works with multiple files, so you can add more to this list
+        json_files_list = ["your-files-here.json"] # This works with multiple files, so you can add more to this list eg ["file1.json","file2.json","file3.json"]
         
         # Check if output file already exists
         proceed = False

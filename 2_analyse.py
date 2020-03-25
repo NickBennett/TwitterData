@@ -39,7 +39,6 @@ def read_tweets_from_json():
                 main_file = json.load(json_file_open)
                 print("Writing the tweets to CSV...")  
                 for i in main_file:
-                    i = json.loads(i)
                     handle = ""            
                     username = ""            
                     timestamp = ""

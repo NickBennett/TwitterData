@@ -7,7 +7,7 @@ def read_tweets_from_json():
     print("Read tweets from json? ")
     answer = input("Y/N ")
     if answer == "Y":
-        json_files_list = ["your-files-here.json"] # This works with multiple files, so you can add more to this list eg ["file1.json","file2.json","file3.json"]
+        json_files_list = ["2020-03-30_2020-03-23.json"] # This works with multiple files, so you can add more to this list eg ["file1.json","file2.json","file3.json"]
         
         # Check if output file already exists
         proceed = False
@@ -18,7 +18,7 @@ def read_tweets_from_json():
             proceed = True
             print("Creating output file...")
             output_file = csv.writer(open("output.csv","w",newline='',encoding='utf-8'))
-            parent_headers = ['Handle','Username','Timestamp','Text','Coordinates','Lat','Lon','isRetweeted','isFavourited','Followers','Following','Total Tweets','Tweet Place','Tweet Place Type','Profile Location','Lang','Source','Mentions','Hashtags','Urls','User ID','Tweet ID','Description','Boundary Box Coords','Bbox Lat','Bbox Lon','isRT','isQuote','isReply','Original Text','InReplyToScreenName','inReplyToTweetID','inReplytoUserID','Quoted User']
+            parent_headers = ['Handle','Username','Timestamp','Text','Coordinates','Lat','Lon','isRetweeted','isFavourited','Followers','Following','Total Tweets','Tweet Place','Tweet Place Type','Profile Location','Lang','Source','Mentions','Hashtags','Urls','Image','User ID','Tweet ID','Description','Boundary Box Coords','Bbox Lat','Bbox Lon','isRT','isQuote','isReply','Original Text','InReplyToScreenName','inReplyToTweetID','inReplytoUserID','Quoted User']
             output_file.writerow(parent_headers)
             
         # If output file has been created and there are no conflicts, proceed.    
@@ -55,6 +55,7 @@ def read_tweets_from_json():
                     mention_list = []
                     hashtag_list = []
                     urls_list = []
+                    image = ""
                     user_id = 0
                     tweet_id = 0
                     lat = ""
@@ -145,6 +146,12 @@ def read_tweets_from_json():
                     if i['entities']['urls']:
                         for url in i['entities']['urls']:
                             urls_list.append(json.dumps(url['expanded_url']).replace('"','').encode('ascii','ignore').decode("utf-8"))
+                    try:
+                        if i['entities']['media']:
+                            for image in i['entities']['media']:
+                                image = image['media_url']
+                    except:
+                        pass
                     if i['user']['location']:
                         profile_location = i['user']['location'].encode('ascii','ignore').decode("utf-8")
                     if i['user']['description']:
@@ -163,7 +170,7 @@ def read_tweets_from_json():
                                     total_geo_tweets += 1
     
                         
-                    output_file.writerow([handle,username,timestamp,text,coordinates,lat,lon,isretweeted,isfavourited,followers,following,total_tweets,tweet_place,tweet_place_type,profile_location,lang,source,mention_list,hashtag_list,urls_list,user_id,tweet_id,description,bounding_box_coords,bbox_lat,bbox_lon,match_set,isRT,isQuote,isReply,original_text,in_reply_to_screen_name,in_reply_to_status_id_str,in_reply_to_user_id_str,quoted_user])
+                    output_file.writerow([handle,username,timestamp,text,coordinates,lat,lon,isretweeted,isfavourited,followers,following,total_tweets,tweet_place,tweet_place_type,profile_location,lang,source,mention_list,hashtag_list,urls_list,image,user_id,tweet_id,description,bounding_box_coords,bbox_lat,bbox_lon,isRT,isQuote,isReply,original_text,in_reply_to_screen_name,in_reply_to_status_id_str,in_reply_to_user_id_str,quoted_user])
             print("Total tweets written: " + str(total_tweets_written))
             print("Total geo tweets written: " + str(total_geo_tweets))
             print("Quotes: " + str(quotes))

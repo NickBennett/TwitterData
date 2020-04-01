@@ -37,15 +37,17 @@ except:
 tweets = []
 count = 0    
 
+# If there are no clashes, contact the Search API with the following parameters
 if in_use == False:
     for tweet in tweepy.Cursor(api.search,
                                q="", 
                                count=100,
                                result_type="recent",
                                include_entities=True,
-                               geocode=('-1.28333,36.81667,100mi') # Change this to modify location data
+                               tweet_mode="extended", #This is needed to return tweets > 140 characters
+                               geocode=('54.06835,-2.86108,1000mi') # Change this to modify location data
                                ).items():
-        print(tweet.created_at, tweet.text)
+        print(tweet.created_at, tweet.full_text)
         count += 1
         print("***")
         tweet_j = tweet._json

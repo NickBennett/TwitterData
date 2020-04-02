@@ -7,7 +7,7 @@ def read_tweets_from_json():
     print("Read tweets from json? ")
     answer = input("Y/N ")
     if answer == "Y":
-        json_files_list = ["2020-03-30_2020-03-23.json"] # This works with multiple files, so you can add more to this list eg ["file1.json","file2.json","file3.json"]
+        json_files_list = ["2020-04-01_2020-03-25.json"] # This works with multiple files, so you can add more to this list eg ["file1.json","file2.json","file3.json"]
         
         # Check if output file already exists
         proceed = False
@@ -42,7 +42,8 @@ def read_tweets_from_json():
                     handle = ""            
                     username = ""            
                     timestamp = ""
-                    text = ""            
+                    text = ""   
+                    full_text = ""
                     coordinates = ""
                     followers = ""
                     following = ""
@@ -121,10 +122,12 @@ def read_tweets_from_json():
                     # Retweets 
                     try:                           
                         if i['retweeted_status']:
+                            retweeted_user = i['entities']['user_mentions'][0]['screen_name']
+                            text = (i['retweeted_status']['full_text'].replace("\n","").replace("\r","")).encode('ascii','ignore').decode("utf-8")
+                            text = ("RT @" + str(retweeted_user) + ": " + str(text))
                             isRT = "true"
-                            if isRT == "true":
-                                retweets += 1
-                                original_text = i['retweeted_status']['full_text'].encode('ascii','ignore').replace("\n"," ").replace("\r"," ").decode("utf-8")
+                            retweets += 1
+                            original_text = i['retweeted_status']['full_text'].replace("\n","").replace("\r","")).encode('ascii','ignore').decode("utf-8")
                     except:
                         pass
                             

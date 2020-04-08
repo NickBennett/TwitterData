@@ -40,7 +40,7 @@ count = 0
 # If there are no clashes, contact the Search API with the following parameters
 if in_use == False:
     for tweet in tweepy.Cursor(api.search,
-                               q="", 
+                               q="query", 
                                count=100,
                                result_type="recent",
                                include_entities=True,
@@ -56,3 +56,4 @@ if in_use == False:
     print("Writing tweets to file - takes a while...")
     simplejson.dump(tweets,output_file)
     print("Tweets between " + str(last_week) + " and " + str(today) + ": " + str(count))
+output_file.close()

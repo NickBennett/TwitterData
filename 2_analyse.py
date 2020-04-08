@@ -76,8 +76,7 @@ def read_tweets_from_json():
                     isQuote = ""
                     original_text = ""
                     quoted_user = ""
-                    timestamp = i['created_at']
-    #                if "2017" in timestamp or "2018" in timestamp or "2019" in timestamp:                
+                    timestamp = i['created_at']           
                     total_tweets_written += 1
                     # Encode raw text to prevent Python crashes
                     handle = (i['user']['name']).encode('ascii','ignore').decode("utf-8")
@@ -127,7 +126,7 @@ def read_tweets_from_json():
                             text = ("RT @" + str(retweeted_user) + ": " + str(text))
                             isRT = "true"
                             retweets += 1
-                            original_text = i['retweeted_status']['full_text'].replace("\n","").replace("\r","")).encode('ascii','ignore').decode("utf-8")
+                            original_text = i['retweeted_status']['full_text'].replace("\n","").replace("\r","").encode('ascii','ignore').decode("utf-8")
                     except:
                         pass
                             
